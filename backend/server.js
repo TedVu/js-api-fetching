@@ -8,14 +8,16 @@ async function getTodoItem() {
   try {
     const res = await axios.get("https://jsonplaceholder.typicode.com/todos/1");
     console.log(res.data);
+
+    return res.data.title;
   } catch (err) {
     console.error(err);
   }
 }
 
-app.get("/", (req, res) => {
-  getTodoItem();
-  res.send("Hello World!");
+app.get("/", async (req, res) => {
+  const title = await getTodoItem();
+  res.send(`The title of this post is ${title}`);
 });
 
 app.listen(port, () => {
